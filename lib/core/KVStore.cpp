@@ -294,6 +294,7 @@ void KVStore::Remove(const char *key, size_t keySize) {
         std::mutex mtx;
         std::condition_variable cv;
         bool ready = false;
+        // todo key has been already removed, poller should take it into account
         if (!_spOffloadPoller->enqueue(new OffloadRqst(
                 OffloadOperation::REMOVE, key, keySize, nullptr, 0,
                 [&mtx, &cv, &ready](KVStoreBase *kvs, Status status,
