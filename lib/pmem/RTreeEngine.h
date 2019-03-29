@@ -53,7 +53,7 @@ class RTreeEngine {
                      char *value) = 0;
     virtual void Put(const char *key, int32_t keybytes, const char *value,
                      int32_t valuebytes) = 0;
-    virtual void Remove(const char *key) = 0; // remove value for key
+    virtual void Remove(const char *key, uint8_t *location) = 0; // remove value for key
     virtual void AllocValueForKey(const char *key, size_t size,
                                   char **value) = 0;
     virtual void

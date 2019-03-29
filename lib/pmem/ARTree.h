@@ -170,7 +170,7 @@ class ARTree : public DaqDB::RTreeEngine {
              char *value) final;
     void Put(const char *key, int32_t keybytes, const char *value,
              int32_t valuebytes) final;
-    void Remove(const char *key) final; // remove value for key
+    void Remove(const char *key, uint8_t *location) final; // remove value for key
     void AllocValueForKey(const char *key, size_t size, char **value) final;
     void AllocateIOVForKey(const char *key, uint64_t **ptr, size_t size) final;
     void UpdateValueWrapper(const char *key, uint64_t *ptr, size_t size) final;

@@ -284,9 +284,10 @@ void OffloadPoller::_processRemove(const OffloadRqst *rqst) {
     }
 
     uint64_t lba = *(static_cast<uint64_t *>(valCtx.val));
+    uint8_t location;
 
     freeLbaList->push(_offloadFreeList, lba);
-    rtree->Remove(rqst->key);
+    rtree->Remove(rqst->key, &location);
     _rqstClb(rqst, StatusCode::OK);
 }
 

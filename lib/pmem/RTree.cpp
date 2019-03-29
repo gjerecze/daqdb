@@ -115,11 +115,12 @@ void RTree::Put(const char *key, int32_t keybytes, const char *value,
     val->locationVolatile.get().value = PMEM;
 }
 
-void RTree::Remove(const char *key) {
+void RTree::Remove(const char *key, uint8_t *location) {
     ValueWrapper *val = tree->findValueInNode(tree->treeRoot->rootNode, key);
     if (val->location == EMPTY) {
         throw OperationFailedException(Status(KEY_NOT_FOUND));
     }
+    *location = val->location;
     try {
         if (val->location == PMEM &&
             val->locationVolatile.get().value != EMPTY) {

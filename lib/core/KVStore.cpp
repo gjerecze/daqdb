@@ -155,7 +155,8 @@ void KVStore::Put(const char *key, size_t keySize, char *value,
     try {
         pKey()->enqueueNext(Key(const_cast<char *>(key), keySize));
     } catch (OperationFailedException &e) {
-        pmem()->Remove(key);
+        uint8_t location;
+        pmem()->Remove(key, &location);
         throw;
     }
 }
@@ -284,7 +285,7 @@ void KVStore::Remove(const char *key, size_t keySize) {
     char *pVal;
     uint8_t location;
 
-    pmem()->Get(key, reinterpret_cast<void **>(&pVal), &size, &location);
+    pmem()->Remove(key, &location);
 
     if (location == DISK) {
         if (!isOffloadEnabled())
@@ -313,8 +314,6 @@ void KVStore::Remove(const char *key, size_t keySize) {
                 throw OperationFailedException(Status(TIME_OUT));
         }
 
-    } else {
-        pmem()->Remove(key);
     }
 }
 

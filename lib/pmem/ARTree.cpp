@@ -290,12 +290,14 @@ void ARTree::removeFromParent(persistent_ptr<ValueWrapper> valPrstPtr) {
     decrementParent(valPrstPtr->parent);
 }
 
-void ARTree::Remove(const char *key) {
+void ARTree::Remove(const char *key, uint8_t *location) {
     persistent_ptr<ValueWrapper> valPrstPtr =
         tree->findValueInNode(tree->treeRoot->rootNode, key, false);
 
     if (valPrstPtr == nullptr || (valPrstPtr->location == EMPTY))
         throw OperationFailedException(Status(KEY_NOT_FOUND));
+
+    *location = valPrstPtr->location;
 
     try {
         removeFromParent(valPrstPtr);
