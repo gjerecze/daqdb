@@ -28,6 +28,7 @@ enum StatusCode : long {
     _MAX_ERRNO = std::numeric_limits<int>::max(),
     KEY_NOT_FOUND,
     BAD_KEY_FORMAT,
+    MEM_ALLOCATION_ERROR,
     PMEM_ALLOCATION_ERROR,
     DHT_ALLOCATION_ERROR,
     SPDK_ALLOCATION_ERROR,

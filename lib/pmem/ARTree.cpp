@@ -526,6 +526,8 @@ void ARTree::AllocValueForKey(const char *key, size_t size, char **value) {
         if (valPrstPtr == nullptr || valPrstPtr->location != EMPTY)
             throw OperationFailedException(Status(PMEM_ALLOCATION_ERROR));
         valPrstPtr->actionValue = new struct pobj_action;
+        if (!valPrstPtr->actionValue)
+            throw OperationFailedException(Status(MEM_ALLOCATION_ERROR));
 
 #ifdef USE_ALLOCATION_CLASSES
         valPrstPtr->locationPtr.value = pmemobj_xreserve(
